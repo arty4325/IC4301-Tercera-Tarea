@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import './index.css';
 import './App.css';
+import Login from './login/login';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+export default function App() {
+  console.log("test");
+  return(
+    <div>
+
+      {/* Definición de rutas */}
+      <Routes>
+        {/* Ruta principal de Login */}
+        <Route path={'/login'} element={<Login/>} />
+
+
+        {/* Redirige "/" a "/login" */}
+        <Route path="/" element={<Navigate to={'/login'} replace />} />
+        {/* <Route path="/empleados" element={<EmployeeList />} />
+        <Route path="/empleados/insertar" element={<InsertarEmpleado />} />
+        <Route path="/empleados/movimientos" element={<MovimientosEmpleado />} />
+        <Route path="/empleados/actualizar" element={<ActualizarEmpleado />} />
+        <Route path="/empleados/movimiento/incertar" element={<InsertarMovimiento/>}/> */}
+        {/* Cualquier otra ruta, de nuevo a login */}
+        <Route path="*" element={<Navigate to={'/login'} replace />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;

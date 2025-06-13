@@ -1,0 +1,78 @@
+/* src/Login.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #f4f6f8;
+    height: 100%;
+  }
+  
+  .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 320px;
+  }
+  
+  .login-title {
+    margin: 0 0 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333333;
+  }
+  
+  .login-error {
+    margin-bottom: 16px;
+    padding: 10px;
+    background: #fdecea;
+    color: #b71c1c;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .login-card label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555555;
+  }
+  
+  .login-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .login-input:focus {
+    outline: none;
+    border-color: #1877f2;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1877f2;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background: #145dbf;
+  }
+  
