@@ -26,22 +26,16 @@ class CargadorCatalogos:
     Implementa el patrón de diseño para manejo de conexiones y transacciones
     """
     
-    def __init__(self):
-        """
-        Constructor que inicializa la conexión y parámetros de auditoría
-        """
+    def __init__(self):  #Constructor
         self.connection = None
         self.cursor = None
         self.post_by = "Sistema"
         self.post_ip = self.get_local_ip()
         
-    def get_local_ip(self):
+    def get_local_ip(self): 
         """
-        Obtiene la dirección IP local del sistema para auditoría
-        Utiliza conexión UDP para determinar la IP local real
-        
-        Returns:
-            str: Dirección IP local o 127.0.0.1 en caso de error
+        Obtiene la dirección IP local del sistema para auditoría        
+        retorna: Dirección IP local o 127.0.0.1 en caso de error
         """
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -54,11 +48,8 @@ class CargadorCatalogos:
     
     def conectar_bd(self):
         """
-        Establece conexión con la base de datos SQL Server
-        Configura la cadena de conexión con parámetros de seguridad
-        
-        Returns:
-            bool: True si conexión exitosa, False en caso contrario
+        Hace la conexión con la base de datos        
+        retorna: True si conexión exitosa, False si no
         """
         try:
             connection_string = (
@@ -79,11 +70,7 @@ class CargadorCatalogos:
             print(f"Error al conectar a la base de datos: {e}")
             return False
     
-    def desconectar_bd(self):
-        """
-        Cierra la conexión con la base de datos de manera segura
-        Libera recursos del cursor y conexión
-        """
+    def desconectar_bd(self): #Cierra la conexión y libera recursos
         if self.cursor:
             self.cursor.close()
         if self.connection:
@@ -92,15 +79,13 @@ class CargadorCatalogos:
     
     def ejecutar_sp(self, sp_name, params):
         """
-        Ejecuta un procedimiento almacenado con manejo de errores
-        Cumple con la arquitectura sin SQL incrustado
+        Ejecuta un procedimiento almacenado
         
-        Args:
-            sp_name (str): Nombre del procedimiento almacenado
-            params (list): Lista de parámetros para el SP
+        argumentos:
+            sp_name: se explica por si mismo.
+            params: los parámetros en una lista.
             
-        Returns:
-            int: Código de resultado del procedimiento (0 = éxito)
+        retorna: codigo de resultado del (0 = todo bien)
         """
         try:
             # Agregar parámetros de auditoría estándar
@@ -110,7 +95,7 @@ class CargadorCatalogos:
             param_placeholders = ', '.join(['?'] * len(params))
             sql = f"DECLARE @result INT; EXEC dbo.{sp_name} {param_placeholders}, @result OUTPUT; SELECT @result"
             
-            # Ejecutar el procedimiento almacenado
+            # Ejecutar el sp
             self.cursor.execute(sql, params)
             result = self.cursor.fetchone()
             result_code = result[0] if result else 50008
@@ -124,13 +109,7 @@ class CargadorCatalogos:
                 self.connection.rollback()
             return 50008
     
-    def cargar_tipos_documento(self, tipos_doc_element):
-        """
-        Carga los tipos de documento de identidad desde XML
-        
-        Args:
-            tipos_doc_element: Elemento XML con tipos de documento
-        """
+    def cargar_tipos_documento(self, tipos_doc_element): #Carga los tipos de documento de identidad desde el XML
         print("\nCargando Tipos de Documento de Identidad...")
         count = 0
         errors = 0
@@ -155,13 +134,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_tipos_jornada(self, tipos_jornada_element):
-        """
-        Carga los tipos de jornada laboral desde XML
-        
-        Args:
-            tipos_jornada_element: Elemento XML con tipos de jornada
-        """
+    def cargar_tipos_jornada(self, tipos_jornada_element): #Carga los tipos de jornada laboral desde el XML
         print("\nCargando Tipos de Jornada...")
         count = 0
         errors = 0
@@ -189,13 +162,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_puestos(self, puestos_element):
-        """
-        Carga los puestos de trabajo con salarios desde XML
-        
-        Args:
-            puestos_element: Elemento XML con puestos de trabajo
-        """
+    def cargar_puestos(self, puestos_element): #Carga los puestos de trabajo con salarios desde el XML
         print("\nCargando Puestos de Trabajo...")
         count = 0
         errors = 0
@@ -220,13 +187,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_departamentos(self, departamentos_element):
-        """
-        Carga los departamentos organizacionales desde XML
-        
-        Args:
-            departamentos_element: Elemento XML con departamentos
-        """
+    def cargar_departamentos(self, departamentos_element): #Carga los departamentos desde el XML
         print("\nCargando Departamentos...")
         count = 0
         errors = 0
@@ -251,13 +212,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_feriados(self, feriados_element):
-        """
-        Carga los días feriados nacionales desde XML
-        
-        Args:
-            feriados_element: Elemento XML con feriados
-        """
+    def cargar_feriados(self, feriados_element): #Carga los días feriados desde el XML
         print("\nCargando Feriados...")
         count = 0
         errors = 0
@@ -286,13 +241,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_tipos_movimiento(self, tipos_mov_element):
-        """
-        Carga los tipos de movimiento de planilla desde XML
-        
-        Args:
-            tipos_mov_element: Elemento XML con tipos de movimiento
-        """
+    def cargar_tipos_movimiento(self, tipos_mov_element): #Carga los tipos de movimiento desde el XML
         print("\nCargando Tipos de Movimiento...")
         count = 0
         errors = 0
@@ -317,13 +266,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_tipos_deduccion(self, tipos_ded_element):
-        """
-        Carga los tipos de deducción (obligatorias y opcionales) desde XML
-        
-        Args:
-            tipos_ded_element: Elemento XML con tipos de deducción
-        """
+    def cargar_tipos_deduccion(self, tipos_ded_element): #Carga los tipos de deducción desde el XML
         print("\nCargando Tipos de Deducción...")
         count = 0
         errors = 0
@@ -354,11 +297,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_tipos_usuario(self):
-        """
-        Carga los tipos de usuario predefinidos del sistema
-        Incluye: Administrador, Empleado, Sistema
-        """
+    def cargar_tipos_usuario(self): #Carga los tipos de usuario del sistema
         print("\nCargando Tipos de Usuario...")
         tipos_usuario = [
             (1, "Administrador"),
@@ -388,9 +327,9 @@ class CargadorCatalogos:
     
     def cargar_usuarios(self, usuarios_element):
         """
-        Carga los usuarios del sistema desde XML
+        Carga los usuarios desde el XML
         
-        Args:
+        argumentos:
             usuarios_element: Elemento XML con usuarios
         """
         print("\nCargando Usuarios...")
@@ -421,13 +360,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_tipos_evento(self, tipos_evento_element):
-        """
-        Carga los tipos de evento para auditoría desde XML
-        
-        Args:
-            tipos_evento_element: Elemento XML con tipos de evento
-        """
+    def cargar_tipos_evento(self, tipos_evento_element): #Carga los tipos de evento desde el XML
         print("\nCargando Tipos de Evento...")
         count = 0
         errors = 0
@@ -452,13 +385,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_errores(self, errores_element):
-        """
-        Carga el catálogo de códigos de error del sistema desde XML
-        
-        Args:
-            errores_element: Elemento XML con códigos de error
-        """
+    def cargar_errores(self, errores_element): #Carga el catálogo de códigos de error del sistema desde XML
         print("\nCargando Catálogo de Errores...")
         count = 0
         errors = 0
@@ -486,10 +413,7 @@ class CargadorCatalogos:
     def cargar_empleados(self, empleados_element):
         """
         Carga los empleados iniciales desde XML
-        Asocia automáticamente deducciones obligatorias via trigger
-        
-        Args:
-            empleados_element: Elemento XML con empleados
+        y además asocia automáticamente deducciones obligatorias con el trigger
         """
         print("\nCargando Empleados...")
         count = 0
@@ -524,14 +448,7 @@ class CargadorCatalogos:
         
         print(f"   Total cargados: {count}, Errores: {errors}")
     
-    def cargar_catalogos_desde_xml(self, archivo_xml):
-        """
-        Método principal para cargar todos los catálogos desde archivo XML
-        Respeta el orden de dependencias de llaves foráneas
-        
-        Args:
-            archivo_xml (str): Ruta al archivo XML con los catálogos
-        """
+    def cargar_catalogos_desde_xml(self, archivo_xml): # Método principal para cargar todos los catálogos desde el XML
         try:
             print(f"Leyendo archivo XML: {archivo_xml}")
             tree = ET.parse(archivo_xml)
