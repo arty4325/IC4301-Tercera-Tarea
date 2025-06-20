@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# ================================================================
-#  SIMULADOR DE OPERACIÓN - TEC Base de Datos I - Jun-2025
-#  Control de Asistencia y Planilla Obrera - VERSIÓN CORREGIDA
-#  Estudiante: [Tu Nombre] - Segundo Año Ingeniería en Computación
-# ================================================================
-
 import pyodbc
 import xml.etree.ElementTree as ET
 import socket
@@ -20,8 +13,8 @@ DRIVER = "ODBC Driver 17 for SQL Server"
 
 def local_ip() -> str:
     """
-    Obtiene la dirección IP local del sistema para propósitos de auditoría
-    Retorna 127.0.0.1 en caso de error
+        Obtiene la dirección IP local del sistema para auditoría        
+        retorna: Dirección IP local o 127.0.0.1 en caso de error
     """
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -34,8 +27,8 @@ def local_ip() -> str:
 
 def connect():
     """
-    Establece conexión con la base de datos SQL Server
-    Configurada para deshabilitar autocommit (transacción manual)
+        Hace la conexión con la base de datos        
+        retorna: True si conexión exitosa, False si no
     """
     connection_string = (
         f"DRIVER={{{DRIVER}}};"
@@ -49,16 +42,14 @@ def connect():
 
 def call_sp(cur, name, params):
     """
-    Ejecuta un procedimiento almacenado con manejo de errores
-    Cumple con la regla de NO SQL incrustado - solo llamadas a SPs
+    Ejecuta un procedimiento almacenado
     
-    Args:
+    argumentos:
         cur: Cursor de la base de datos
-        name: Nombre del procedimiento almacenado
-        params: Lista de parámetros para el SP
+        name: se explica por si mismo.
+        params: los parámetros en una lista.
     
-    Raises:
-        RuntimeError: Si el SP retorna código de error diferente a 0
+    Levanta un RuntimeError si el SP retorna código de error diferente a 0
     """
     placeholders = ','.join(['?'] * len(params))
     sql = f"DECLARE @rc INT; EXEC dbo.{name} {placeholders}, @rc OUTPUT; SELECT @rc"
@@ -75,16 +66,15 @@ def call_sp(cur, name, params):
 
 def call_sp_with_output(cur, name, params):
     """
-    Ejecuta SP que retorna un valor además del código de resultado
     Utilizado para SPs que crean registros y devuelven el ID generado
     
-    Args:
+    argumentos:
         cur: Cursor de la base de datos
-        name: Nombre del procedimiento almacenado
-        params: Lista de parámetros para el SP
+        name: se explica por si mismo.
+        params: los parámetros en una lista.
     
-    Returns:
-        tuple: (valor_retornado, codigo_resultado)
+    retorna:
+        (valor_retornado, codigo_resultado)
     """
     placeholders = ','.join(['?'] * len(params))
     sql = f"DECLARE @id INT, @rc INT; EXEC dbo.{name} {placeholders}, @id OUTPUT, @rc OUTPUT; SELECT @id, @rc"
@@ -101,16 +91,6 @@ def call_sp_with_output(cur, name, params):
         raise
 
 def main(xml_file="operacion.xml"):
-    """
-    Función principal del simulador de operación
-    Procesa el archivo XML de operaciones en una sola transacción
-    
-    Args:
-        xml_file: Ruta al archivo XML con las operaciones a simular
-    
-    Returns:
-        int: Código de salida (0 = éxito, 1 = error)
-    """
     print("=" * 70)
     print("   SIMULADOR DE OPERACIÓN - TEC BASE DE DATOS I")
     print("   Control de Asistencia y Planilla Obrera")
@@ -145,12 +125,10 @@ def main(xml_file="operacion.xml"):
         'fechas_procesadas': 0
     }
     
-    # INICIO DE TRANSACCIÓN ÚNICA COMO REQUIERE LA ESPECIFICACIÓN
     try:
         with connect() as conn:
             cur = conn.cursor()
             print("Conexión a base de datos establecida correctamente")
-            print("\nINICIANDO SIMULACIÓN CON TRANSACCIÓN ÚNICA")
             print("Procesando operaciones de 160 días consecutivos...")
             
             # Obtener todos los nodos de fecha para procesamiento secuencial
