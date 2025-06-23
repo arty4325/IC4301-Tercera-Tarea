@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # ================================================================
 #  SIMULADOR DE OPERACIÓN - TEC Base de Datos I
 #  Control de Asistencia y Planilla Obrera
@@ -12,7 +11,7 @@ import socket
 import sys
 from datetime import datetime, timedelta
 
-# Se establece una conexción con la base de datos hosteada en CloudClusters
+# Conexción con la base de datos hosteada en CloudClusters
 SERVER = "mssql-196019-0.cloudclusters.net,10245"
 DATABASE = "BASESPROYECTO"
 USERNAME = "requeSoftware"
@@ -81,10 +80,6 @@ def call_sp_with_output(cur, name, params, tolerated=(0, 50015)):
 
 
 def main(xml_file="operacion.xml"):
-    """
-    Función principal del simulador de operación
-    Procesa el archivo XML de operaciones en una sola transacción
-    """
     print("=" * 70)
     print("   SIMULADOR DE OPERACIÓN - TEC BASE DE DATOS I")
     print("   Control de Asistencia y Planilla Obrera")
@@ -105,7 +100,6 @@ def main(xml_file="operacion.xml"):
     print(f"Dirección IP del sistema: {ip}")
     print(f"Usuario del sistema: {by}")
     
-    # Inicialización de contadores estadísticos para verificar si todo esta bien
     stats = {
         'empleados_insertados': 0,
         'empleados_eliminados': 0,
@@ -117,7 +111,6 @@ def main(xml_file="operacion.xml"):
         'fechas_procesadas': 0
     }
     
-    # Se hace una UNICA transaccion
     try:
         with connect() as conn:
             cur = conn.cursor()

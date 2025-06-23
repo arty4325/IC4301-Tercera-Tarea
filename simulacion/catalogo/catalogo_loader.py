@@ -13,7 +13,7 @@ from datetime import datetime
 import sys
 from sys import exit
 
-# Se establece una conexción con la base de datos hosteada en CloudClusters
+# Conexción con la base de datos hosteada en CloudClusters
 SERVER = "mssql-196019-0.cloudclusters.net,10245"
 DATABASE = "BASESPROYECTO"
 USERNAME = "requeSoftware"
@@ -22,9 +22,6 @@ DRIVER = "ODBC Driver 17 for SQL Server"
 DATE_FMT = "%Y-%m-%d"
 
 class CargadorCatalogos:
-    """
-    Clase principal para la carga de catálogos desde XML hacia SQL Server
-    """
     
     def __init__(self):
         self.connection = None
