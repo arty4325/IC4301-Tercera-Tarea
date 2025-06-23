@@ -1,10 +1,18 @@
+#!/usr/bin/env python3
+# ================================================================
+#  SIMULADOR DE OPERACIÓN - TEC Base de Datos I
+#  Control de Asistencia y Planilla Obrera
+#  Estudiantes: Oscar Arturo Acuña Durán (2022049304)
+#               Alejandro Umaña Miranda  (2024130345)
+# ================================================================
+
 import pyodbc
 import xml.etree.ElementTree as ET
 import socket
 import sys
 from datetime import datetime, timedelta
 
-# Configuración de conexión a la base de datos CloudClusters
+# Se establece una conexción con la base de datos hosteada en CloudClusters
 SERVER = "mssql-196019-0.cloudclusters.net,10245"
 DATABASE = "BASESPROYECTO"
 USERNAME = "requeSoftware"
@@ -13,8 +21,8 @@ DRIVER = "ODBC Driver 17 for SQL Server"
 
 def local_ip() -> str:
     """
-        Obtiene la dirección IP local del sistema para auditoría        
-        retorna: Dirección IP local o 127.0.0.1 en caso de error
+    Se obtiene la IP desde la que se hacen las consultas para poder llevar un registro en la base de datos
+    Retorna 127.0.0.1 en caso de error
     """
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -27,8 +35,7 @@ def local_ip() -> str:
 
 def connect():
     """
-        Hace la conexión con la base de datos        
-        retorna: True si conexión exitosa, False si no
+    Se toman los credenciales y se hace una conexión con la DB de MSSQL 
     """
     connection_string = (
         f"DRIVER={{{DRIVER}}};"
@@ -42,14 +49,8 @@ def connect():
 
 def call_sp(cur, name, params):
     """
-    Ejecuta un procedimiento almacenado
-    
-    argumentos:
-        cur: Cursor de la base de datos
-        name: se explica por si mismo.
-        params: los parámetros en una lista.
-    
-    Levanta un RuntimeError si el SP retorna código de error diferente a 0
+    Ejecuta un procedimiento almacenado con manejo de errores
+    La idea es modularizar la llamada a procedimientos almacenados
     """
     placeholders = ','.join(['?'] * len(params))
     sql = f"DECLARE @rc INT; EXEC dbo.{name} {placeholders}, @rc OUTPUT; SELECT @rc"
@@ -64,37 +65,29 @@ def call_sp(cur, name, params):
         print(f"Error en SP {name}: {e}")
         raise
 
-def call_sp_with_output(cur, name, params):
+def call_sp_with_output(cur, name, params, tolerated=(0, 50015)):
     """
-    Utilizado para SPs que crean registros y devuelven el ID generado
-    
-    argumentos:
-        cur: Cursor de la base de datos
-        name: se explica por si mismo.
-        params: los parámetros en una lista.
-    
-    retorna:
-        (valor_retornado, codigo_resultado)
+    Ejecuta SP que retorna un valor y un código de resultado.
     """
-    placeholders = ','.join(['?'] * len(params))
-    sql = f"DECLARE @id INT, @rc INT; EXEC dbo.{name} {placeholders}, @id OUTPUT, @rc OUTPUT; SELECT @id, @rc"
-    
-    try:
-        cur.execute(sql, params)
-        result = cur.fetchone()
-        id_result, rc = result[0], result[1]
-        if rc != 0:
-            raise RuntimeError(f"SP {name} devolvió código {rc}")
-        return id_result, rc
-    except Exception as e:
-        print(f"Error en SP {name}: {e}")
-        raise
+    ph = ','.join('?' * len(params))
+    sql = (f"DECLARE @out INT, @rc INT; EXEC dbo.{name} {ph}, @out OUTPUT, @rc OUTPUT;"
+           " SELECT @out, @rc")
+    cur.execute(sql, params)
+    out, rc = cur.fetchone()
+
+    if rc not in tolerated:
+        raise RuntimeError(f"SP {name} devolvió código {rc}")
+    return out, rc
+
 
 def main(xml_file="operacion.xml"):
+    """
+    Función principal del simulador de operación
+    Procesa el archivo XML de operaciones en una sola transacción
+    """
     print("=" * 70)
     print("   SIMULADOR DE OPERACIÓN - TEC BASE DE DATOS I")
     print("   Control de Asistencia y Planilla Obrera")
-    print("   PROYECTO ACADEMICO - VERSION SIN SQL INCRUSTADO")
     print("=" * 70)
     
     # Cargar y parsear el archivo XML de operaciones
@@ -106,14 +99,13 @@ def main(xml_file="operacion.xml"):
         print(f"Error cargando archivo XML: {e}")
         return 1
     
-    # Configuración de auditoría
     ip = local_ip()
     by = "SimuladorXML"
     
     print(f"Dirección IP del sistema: {ip}")
     print(f"Usuario del sistema: {by}")
     
-    # Inicialización de contadores estadísticos
+    # Inicialización de contadores estadísticos para verificar si todo esta bien
     stats = {
         'empleados_insertados': 0,
         'empleados_eliminados': 0,
@@ -125,11 +117,11 @@ def main(xml_file="operacion.xml"):
         'fechas_procesadas': 0
     }
     
+    # Se hace una UNICA transaccion
     try:
         with connect() as conn:
             cur = conn.cursor()
             print("Conexión a base de datos establecida correctamente")
-            print("Procesando operaciones de 160 días consecutivos...")
             
             # Obtener todos los nodos de fecha para procesamiento secuencial
             fechas_nodos = root.findall('FechaOperacion')
@@ -150,16 +142,36 @@ def main(xml_file="operacion.xml"):
                     empleados_dia = 0
                     for nemp in nuevos_empleados.findall('NuevoEmpleado'):
                         try:
-                            call_sp(cur, 'InsertarEmpleadoOperacion', [
-                                nemp.get('Nombre'),
-                                int(nemp.get('IdTipoDocumento')),
-                                nemp.get('ValorTipoDocumento'),
-                                nemp.get('FechaNacimiento'),
-                                int(nemp.get('IdDepartamento')),
-                                nemp.get('NombrePuesto'),
-                                None,  # IdUsuario - no se asigna en simulación
-                                by, ip
-                            ])
+                            # Verificar si viene con Usuario y Password
+                            username = nemp.get('Usuario')
+                            password = nemp.get('Password')
+                            
+                            if username and password:
+                                # SP crea usuario
+                                call_sp(cur, 'InsertarEmpleadoOperacionConUsuario', [
+                                    nemp.get('Nombre'),
+                                    int(nemp.get('IdTipoDocumento')),
+                                    nemp.get('ValorTipoDocumento'),
+                                    nemp.get('FechaNacimiento'),
+                                    int(nemp.get('IdDepartamento')),
+                                    nemp.get('NombrePuesto'),
+                                    username,
+                                    password,
+                                    by, ip
+                                ])
+                            else:
+                                # SP considera formato viejo de XML
+                                call_sp(cur, 'InsertarEmpleadoOperacion', [
+                                    nemp.get('Nombre'),
+                                    int(nemp.get('IdTipoDocumento')),
+                                    nemp.get('ValorTipoDocumento'),
+                                    nemp.get('FechaNacimiento'),
+                                    int(nemp.get('IdDepartamento')),
+                                    nemp.get('NombrePuesto'),
+                                    None,  
+                                    by, ip
+                                ])
+                            
                             empleados_dia += 1
                             stats['empleados_insertados'] += 1
                         except Exception as e:
@@ -191,19 +203,23 @@ def main(xml_file="operacion.xml"):
                     asociaciones_dia = 0
                     for aso in asociaciones.findall('AsociacionEmpleadoConDeduccion'):
                         try:
+                            # Opción 1: monto = None si no viene definido
+                            montostr = aso.get('Monto')
+                            monto_val = float(montostr) if montostr is not None else None
+                
                             call_sp(cur, 'AsociarEmpleadoConDeduccion', [
                                 aso.get('ValorTipoDocumento'),
                                 int(aso.get('IdTipoDeduccion')),
-                                float(aso.get('Monto')),
+                                monto_val,
                                 by, ip
                             ])
                             asociaciones_dia += 1
                             stats['asociaciones_deduccion'] += 1
                         except Exception as e:
                             print(f"    Error asociando deducción: {e}")
-                    
                     if asociaciones_dia > 0:
                         print(f"    {asociaciones_dia} deducciones asociadas correctamente")
+
                 
                 # OPERACIÓN 4: Desasociación de deducciones no obligatorias
                 desasociaciones = fecha_node.find('./DesasociacionEmpleadoDeducciones')
@@ -231,7 +247,7 @@ def main(xml_file="operacion.xml"):
                         # Calcular fecha de inicio de próxima semana (viernes)
                         viernes = fecha_obj + timedelta(days=1)
                         
-                        # Crear o recuperar semana planilla usando SP sin SQL incrustado
+                        # Crear o recuperar semana planilla usando SP
                         try:
                             id_semana, rc_sem = call_sp_with_output(cur, 'GetOrCreateSemanaPlanilla', [
                                 viernes, by, ip
@@ -299,26 +315,21 @@ def main(xml_file="operacion.xml"):
                 
                 # OPERACIÓN 7: Cierre semanal de planilla (solo jueves)
                 if es_jueves:
-                    # Obtener ID de semana actual para aplicar cierre usando SP
-                    try:
-                        id_semana_actual, rc_semana = call_sp_with_output(cur, 'SP_ObtenerIdSemanaPorFecha', [
-                            fecha_obj
-                        ])
-                        
-                        if rc_semana == 0:
-                            # Aplicar deducciones y calcular salarios netos
-                            call_sp(cur, 'CierreSemanalPlanilla', [
-                                id_semana_actual, by, ip
-                            ])
-                            
-                            stats['semanas_cerradas'] += 1
-                            print(f"    Cierre semanal completado (Semana ID: {id_semana_actual})")
-                            print(f"    Deducciones aplicadas y salarios netos calculados")
-                        
-                    except Exception as e:
-                        print(f"    Error en cierre semanal: {e}")
+                    sem_id, rc_sem = call_sp_with_output(
+                        cur, 'SP_ObtenerIdSemanaPorFecha', [fecha_obj])
                 
-                # Mostrar progreso cada 20 días procesados
+                    if rc_sem == 0:                     # semana encontrada
+                        call_sp(cur, 'CierreSemanalPlanilla', [sem_id, by, ip])
+                        stats['semanas_cerradas'] += 1
+                        print(f"    Cierre semanal completado (Semana ID: {sem_id})")
+                
+                    elif rc_sem == 50015:               # primera vez: no hay nada que cerrar
+                        print("    (Primer jueves: no hay semana que cerrar)")
+                
+                    else:                               
+                        raise RuntimeError(f"SP_ObtenerIdSemanaPorFecha devolvió código {rc_sem}")
+                
+                # Mostrar progreso cada 20 días procesados (Nada mas para tener una idea de como va)
                 if i % 20 == 0:
                     progreso = (i / total_fechas) * 100
                     print(f"\nProgreso de simulación: {i}/{total_fechas} días procesados ({progreso:.1f}%)")
@@ -350,11 +361,10 @@ def main(xml_file="operacion.xml"):
     
     return 0
 
-# Punto de entrada del programa
+
 if __name__ == "__main__":
     xml_file = "operacion.xml"
     
-    # Permitir especificar archivo XML como argumento de línea de comandos
     if len(sys.argv) > 1:
         xml_file = sys.argv[1]
     
