@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # ================================================================
 #  CARGADOR DE CATÁLOGOS - TEC Base de Datos I
 #  Control de Asistencia y Planilla Obrera
