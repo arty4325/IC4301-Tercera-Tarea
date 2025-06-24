@@ -1,0 +1,218 @@
+<?xml version="1.0" ?>
+<Catalogo>
+  <TiposdeDocumentodeIdentidad>
+    <TipoDocuIdentidad Id="1" Nombre="Cedula Nacional"/>
+    <TipoDocuIdentidad Id="2" Nombre="Cedula Residente"/>
+    <TipoDocuIdentidad Id="3" Nombre="Pasaporte"/>
+    <TipoDocuIdentidad Id="4" Nombre="Cedula Juridica"/>
+    <TipoDocuIdentidad Id="5" Nombre="Permiso de Trabajo"/>
+    <TipoDocuIdentidad Id="6" Nombre="Cedula Extranjera"/>
+  </TiposdeDocumentodeIdentidad>
+  <TiposDeJornada>
+    <TipoDeJornada Id="1" Nombre="Diurno" HoraInicio="06:00" HoraFin="14:00"/>
+    <TipoDeJornada Id="2" Nombre="Vespertino" HoraInicio="14:00" HoraFin="22:00"/>
+    <TipoDeJornada Id="3" Nombre="Nocturno" HoraInicio="22:00" HoraFin="06:00"/>
+  </TiposDeJornada>
+  <Puestos>
+    <Puesto Nombre="Electricista" SalarioXHora="1200"/>
+    <Puesto Nombre="Auxiliar de Laboratorio" SalarioXHora="1250"/>
+    <Puesto Nombre="Operador de Maquina" SalarioXHora="1025"/>
+    <Puesto Nombre="Soldador" SalarioXHora="1350"/>
+    <Puesto Nombre="Tecnico de Mantenimiento" SalarioXHora="1400"/>
+    <Puesto Nombre="Bodeguero" SalarioXHora="950"/>
+  </Puestos>
+  <Departamentos>
+    <Departamento Id="1" Nombre="Enlaminado"/>
+    <Departamento Id="2" Nombre="Laboratorio"/>
+    <Departamento Id="3" Nombre="Bodega de materiales"/>
+    <Departamento Id="4" Nombre="Bodega de producto terminado"/>
+  </Departamentos>
+  <Feriados>
+    <Feriado Id="1" Nombre="Día de Año Nuevo" Fecha="20230101"/>
+    <Feriado Id="2" Nombre="Día de Juan Santamaría" Fecha="20230411"/>
+    <Feriado Id="3" Nombre="Jueves Santo" Fecha="20230406"/>
+    <Feriado Id="4" Nombre="Viernes Santo" Fecha="20230407"/>
+    <Feriado Id="5" Nombre="Día del Trabajo" Fecha="20230501"/>
+    <Feriado Id="6" Nombre="Anexión del Partido de Nicoya" Fecha="20230725"/>
+    <Feriado Id="7" Nombre="Día de la Virgen de los Ángeles" Fecha="20230802"/>
+    <Feriado Id="8" Nombre="Día de la Madre" Fecha="20230815"/>
+    <Feriado Id="9" Nombre="Día de la Independencia" Fecha="20230915"/>
+    <Feriado Id="10" Nombre="Día de las Culturas" Fecha="20231012"/>
+    <Feriado Id="11" Nombre="Navidad" Fecha="20231225"/>
+  </Feriados>
+  <TiposDeMovimiento>
+    <TipoDeMovimiento Id="1" Nombre="Credito Horas ordinarias"/>
+    <TipoDeMovimiento Id="2" Nombre="Credito Horas Extra Normales"/>
+    <TipoDeMovimiento Id="3" Nombre="Credito Horas Extra Dobles"/>
+    <TipoDeMovimiento Id="4" Nombre="Debito Deducciones de Ley"/>
+    <TipoDeMovimiento Id="5" Nombre="Debito Deduccion No Obligatoria"/>
+  </TiposDeMovimiento>
+  <TiposDeDeduccion>
+    <TipoDeDeduccion Id="1" Nombre="Obligatorio de Ley" Obligatorio="Si" Porcentual="Si" Valor="0.095"/>
+    <TipoDeDeduccion Id="2" Nombre="Ahorro Asociacion Solidarista" Obligatorio="No" Porcentual="Si" Valor="0.05"/>
+    <TipoDeDeduccion Id="3" Nombre="Ahorro Vacacional" Obligatorio="No" Porcentual="No" Valor="0"/>
+    <TipoDeDeduccion Id="4" Nombre="Pension Alimenticia" Obligatorio="No" Porcentual="No" Valor="0"/>
+  </TiposDeDeduccion>
+  <Errores>
+    <Error Codigo="50001" Descripcion="Username no existe"/>
+    <Error Codigo="50002" Descripcion="Password no existe"/>
+    <Error Codigo="50003" Descripcion="Login deshabilitado"/>
+    <Error Codigo="50004" Descripcion="Empleado con ValorDocumentoIdentidad ya existe en inserción"/>
+    <Error Codigo="50005" Descripcion="Empleado con mismo nombre ya existe en inserción"/>
+    <Error Codigo="50006" Descripcion="Empleado con ValorDocumentoIdentidad ya existe en actualización"/>
+    <Error Codigo="50007" Descripcion="Empleado con mismo nombre ya existe en actualización"/>
+    <Error Codigo="50008" Descripcion="Error de base de datos"/>
+    <Error Codigo="50009" Descripcion="Nombre de empleado no alfabético"/>
+    <Error Codigo="50010" Descripcion="Valor de documento de identidad no alfabético"/>
+  </Errores>
+  <Usuarios>
+    <Usuario Id="1" Username="Goku" Password="1234" Tipo="1"/>
+    <Usuario Id="2" Username="Willy" Password="1234" Tipo="1"/>
+    <Usuario Id="3" Username="Pepe" Password="1234" Tipo="2"/>
+    <Usuario Id="4" Username="Lola" Password="1234" Tipo="2"/>
+    <Usuario Id="5" Username="SinNombre" Password="script" Tipo="3"/>
+    <Usuario Id="6" Username="emp1" Password="1234" Tipo="2"/>
+    <Usuario Id="7" Username="emp2" Password="1234" Tipo="2"/>
+    <Usuario Id="8" Username="emp3" Password="1234" Tipo="2"/>
+    <Usuario Id="9" Username="emp4" Password="1234" Tipo="2"/>
+    <Usuario Id="10" Username="emp5" Password="1234" Tipo="2"/>
+    <Usuario Id="11" Username="emp6" Password="1234" Tipo="2"/>
+    <Usuario Id="12" Username="emp7" Password="1234" Tipo="2"/>
+    <Usuario Id="13" Username="emp8" Password="1234" Tipo="2"/>
+    <Usuario Id="14" Username="emp9" Password="1234" Tipo="2"/>
+    <Usuario Id="15" Username="emp10" Password="1234" Tipo="2"/>
+    <Usuario Id="16" Username="emp11" Password="1234" Tipo="2"/>
+    <Usuario Id="17" Username="emp12" Password="1234" Tipo="2"/>
+    <Usuario Id="18" Username="emp13" Password="1234" Tipo="2"/>
+    <Usuario Id="19" Username="emp14" Password="1234" Tipo="2"/>
+    <Usuario Id="20" Username="emp15" Password="1234" Tipo="2"/>
+    <Usuario Id="21" Username="emp16" Password="1234" Tipo="2"/>
+    <Usuario Id="22" Username="emp17" Password="1234" Tipo="2"/>
+    <Usuario Id="23" Username="emp18" Password="1234" Tipo="2"/>
+    <Usuario Id="24" Username="emp19" Password="1234" Tipo="2"/>
+    <Usuario Id="25" Username="emp20" Password="1234" Tipo="2"/>
+    <Usuario Id="26" Username="emp21" Password="1234" Tipo="2"/>
+    <Usuario Id="27" Username="emp22" Password="1234" Tipo="2"/>
+    <Usuario Id="28" Username="emp23" Password="1234" Tipo="2"/>
+    <Usuario Id="29" Username="emp24" Password="1234" Tipo="2"/>
+    <Usuario Id="30" Username="emp25" Password="1234" Tipo="2"/>
+    <Usuario Id="31" Username="emp26" Password="1234" Tipo="2"/>
+    <Usuario Id="32" Username="emp27" Password="1234" Tipo="2"/>
+    <Usuario Id="33" Username="emp28" Password="1234" Tipo="2"/>
+    <Usuario Id="34" Username="emp29" Password="1234" Tipo="2"/>
+    <Usuario Id="35" Username="emp30" Password="1234" Tipo="2"/>
+    <Usuario Id="36" Username="emp31" Password="1234" Tipo="2"/>
+    <Usuario Id="37" Username="emp32" Password="1234" Tipo="2"/>
+    <Usuario Id="38" Username="emp33" Password="1234" Tipo="2"/>
+    <Usuario Id="39" Username="emp34" Password="1234" Tipo="2"/>
+    <Usuario Id="40" Username="emp35" Password="1234" Tipo="2"/>
+    <Usuario Id="41" Username="emp36" Password="1234" Tipo="2"/>
+    <Usuario Id="42" Username="emp37" Password="1234" Tipo="2"/>
+    <Usuario Id="43" Username="emp38" Password="1234" Tipo="2"/>
+    <Usuario Id="44" Username="emp39" Password="1234" Tipo="2"/>
+    <Usuario Id="45" Username="emp40" Password="1234" Tipo="2"/>
+    <Usuario Id="46" Username="emp41" Password="1234" Tipo="2"/>
+    <Usuario Id="47" Username="emp42" Password="1234" Tipo="2"/>
+    <Usuario Id="48" Username="emp43" Password="1234" Tipo="2"/>
+    <Usuario Id="49" Username="emp44" Password="1234" Tipo="2"/>
+    <Usuario Id="50" Username="emp45" Password="1234" Tipo="2"/>
+    <Usuario Id="51" Username="emp46" Password="1234" Tipo="2"/>
+    <Usuario Id="52" Username="emp47" Password="1234" Tipo="2"/>
+    <Usuario Id="53" Username="emp48" Password="1234" Tipo="2"/>
+    <Usuario Id="54" Username="emp49" Password="1234" Tipo="2"/>
+    <Usuario Id="55" Username="emp50" Password="1234" Tipo="2"/>
+    <Usuario Id="56" Username="emp51" Password="1234" Tipo="2"/>
+    <Usuario Id="57" Username="emp52" Password="1234" Tipo="2"/>
+    <Usuario Id="58" Username="emp53" Password="1234" Tipo="2"/>
+    <Usuario Id="59" Username="emp54" Password="1234" Tipo="2"/>
+    <Usuario Id="60" Username="emp55" Password="1234" Tipo="2"/>
+    <Usuario Id="61" Username="emp56" Password="1234" Tipo="2"/>
+    <Usuario Id="62" Username="emp57" Password="1234" Tipo="2"/>
+    <Usuario Id="63" Username="emp58" Password="1234" Tipo="2"/>
+    <Usuario Id="64" Username="emp59" Password="1234" Tipo="2"/>
+    <Usuario Id="65" Username="emp60" Password="1234" Tipo="2"/>
+  </Usuarios>
+  <UsuariosAdministradores>
+    <UsuarioAdministrador IdUsuario="1"/>
+    <UsuarioAdministrador IdUsuario="2"/>
+  </UsuariosAdministradores>
+  <TiposdeEvento>
+    <TipoEvento Id="1" Nombre="Login"/>
+    <TipoEvento Id="2" Nombre="Logout"/>
+    <TipoEvento Id="3" Nombre="Listar empleados"/>
+    <TipoEvento Id="4" Nombre="Listar empleados con filtro"/>
+    <TipoEvento Id="5" Nombre="Insertar empleado"/>
+    <TipoEvento Id="6" Nombre="Eliminar empleado"/>
+    <TipoEvento Id="7" Nombre="Editar empleado"/>
+    <TipoEvento Id="8" Nombre="Asociar deducción"/>
+    <TipoEvento Id="9" Nombre="Desasociar deducción"/>
+    <TipoEvento Id="10" Nombre="Consultar una planilla semanal"/>
+    <TipoEvento Id="11" Nombre="Consultar una planilla mensual"/>
+    <TipoEvento Id="12" Nombre="Impersonar empleado"/>
+    <TipoEvento Id="13" Nombre="Regresar a interfaz de administrador"/>
+    <TipoEvento Id="14" Nombre="Ingreso de marcas de asistencia"/>
+    <TipoEvento Id="15" Nombre="Ingreso nuevas jornadas"/>
+  </TiposdeEvento>
+  <Empleados>
+    <Empleado Nombre="Alice Gentles" IdTipoDocumento="1" ValorDocumento="2-437-260" FechaNacimiento="1992-10-24" IdDepartamento="1" NombrePuesto="Soldador" IdUsuario="6" Activo="1"/>
+    <Empleado Nombre="Jacqueline Stevenson" IdTipoDocumento="1" ValorDocumento="5-721-766" FechaNacimiento="1977-07-16" IdDepartamento="1" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="7" Activo="1"/>
+    <Empleado Nombre="Larry Wheeler" IdTipoDocumento="1" ValorDocumento="3-739-459" FechaNacimiento="1978-04-15" IdDepartamento="2" NombrePuesto="Electricista" IdUsuario="8" Activo="1"/>
+    <Empleado Nombre="Tammy Bartell" IdTipoDocumento="1" ValorDocumento="6-350-398" FechaNacimiento="1974-10-08" IdDepartamento="2" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="9" Activo="1"/>
+    <Empleado Nombre="Pedro Eggers" IdTipoDocumento="1" ValorDocumento="5-994-631" FechaNacimiento="1985-10-23" IdDepartamento="3" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="10" Activo="1"/>
+    <Empleado Nombre="Earle Colon" IdTipoDocumento="1" ValorDocumento="4-916-281" FechaNacimiento="1985-01-19" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="11" Activo="1"/>
+    <Empleado Nombre="George Barron" IdTipoDocumento="1" ValorDocumento="5-419-387" FechaNacimiento="1976-12-03" IdDepartamento="1" NombrePuesto="Electricista" IdUsuario="12" Activo="1"/>
+    <Empleado Nombre="Michael Colarusso" IdTipoDocumento="1" ValorDocumento="1-140-308" FechaNacimiento="1973-08-06" IdDepartamento="3" NombrePuesto="Electricista" IdUsuario="13" Activo="1"/>
+    <Empleado Nombre="Justin Graham" IdTipoDocumento="1" ValorDocumento="5-297-887" FechaNacimiento="1970-11-20" IdDepartamento="3" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="14" Activo="1"/>
+    <Empleado Nombre="Margaret Raymond" IdTipoDocumento="1" ValorDocumento="7-342-969" FechaNacimiento="1993-04-16" IdDepartamento="2" NombrePuesto="Soldador" IdUsuario="15" Activo="1"/>
+    <Empleado Nombre="Debra Keefer" IdTipoDocumento="1" ValorDocumento="2-528-201" FechaNacimiento="2001-05-27" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="16" Activo="1"/>
+    <Empleado Nombre="Pedro Zellinger" IdTipoDocumento="1" ValorDocumento="1-344-605" FechaNacimiento="1981-04-20" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="17" Activo="1"/>
+    <Empleado Nombre="Donald Ellingson" IdTipoDocumento="1" ValorDocumento="7-786-873" FechaNacimiento="1978-08-11" IdDepartamento="1" NombrePuesto="Bodeguero" IdUsuario="18" Activo="1"/>
+    <Empleado Nombre="John Haig" IdTipoDocumento="1" ValorDocumento="5-212-311" FechaNacimiento="1995-12-01" IdDepartamento="4" NombrePuesto="Soldador" IdUsuario="19" Activo="1"/>
+    <Empleado Nombre="Roy Wolfman" IdTipoDocumento="1" ValorDocumento="1-412-967" FechaNacimiento="1980-11-24" IdDepartamento="4" NombrePuesto="Operador de Maquina" IdUsuario="20" Activo="1"/>
+    <Empleado Nombre="Esther Taylor" IdTipoDocumento="1" ValorDocumento="3-444-415" FechaNacimiento="1970-12-19" IdDepartamento="3" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="21" Activo="1"/>
+    <Empleado Nombre="Kenton Kaminski" IdTipoDocumento="1" ValorDocumento="2-447-524" FechaNacimiento="1980-06-21" IdDepartamento="1" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="22" Activo="1"/>
+    <Empleado Nombre="Harold Brown" IdTipoDocumento="1" ValorDocumento="7-708-958" FechaNacimiento="1968-06-24" IdDepartamento="2" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="23" Activo="1"/>
+    <Empleado Nombre="Ray Paschal" IdTipoDocumento="1" ValorDocumento="7-596-172" FechaNacimiento="1983-12-02" IdDepartamento="4" NombrePuesto="Electricista" IdUsuario="24" Activo="1"/>
+    <Empleado Nombre="Kyle Jones" IdTipoDocumento="1" ValorDocumento="2-284-325" FechaNacimiento="1991-12-03" IdDepartamento="3" NombrePuesto="Soldador" IdUsuario="25" Activo="1"/>
+    <Empleado Nombre="Elizabeth Watson" IdTipoDocumento="1" ValorDocumento="1-292-981" FechaNacimiento="2000-10-21" IdDepartamento="3" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="26" Activo="1"/>
+    <Empleado Nombre="Johnny Bohrman" IdTipoDocumento="1" ValorDocumento="5-968-902" FechaNacimiento="1987-01-13" IdDepartamento="4" NombrePuesto="Bodeguero" IdUsuario="27" Activo="1"/>
+    <Empleado Nombre="Carol Fillers" IdTipoDocumento="1" ValorDocumento="4-188-815" FechaNacimiento="2005-01-21" IdDepartamento="4" NombrePuesto="Electricista" IdUsuario="28" Activo="1"/>
+    <Empleado Nombre="James Haines" IdTipoDocumento="1" ValorDocumento="1-198-184" FechaNacimiento="1992-05-07" IdDepartamento="2" NombrePuesto="Bodeguero" IdUsuario="29" Activo="1"/>
+    <Empleado Nombre="James Pope" IdTipoDocumento="1" ValorDocumento="1-451-689" FechaNacimiento="1976-09-21" IdDepartamento="3" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="30" Activo="1"/>
+    <Empleado Nombre="Gregory Mohamed" IdTipoDocumento="1" ValorDocumento="4-317-763" FechaNacimiento="1980-05-18" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="31" Activo="1"/>
+    <Empleado Nombre="Sara Omura" IdTipoDocumento="1" ValorDocumento="7-321-623" FechaNacimiento="1983-07-11" IdDepartamento="2" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="32" Activo="1"/>
+    <Empleado Nombre="Salvatore Berard" IdTipoDocumento="1" ValorDocumento="3-891-650" FechaNacimiento="1976-06-23" IdDepartamento="2" NombrePuesto="Bodeguero" IdUsuario="33" Activo="1"/>
+    <Empleado Nombre="Dale Brown" IdTipoDocumento="1" ValorDocumento="3-569-571" FechaNacimiento="1998-06-05" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="34" Activo="1"/>
+    <Empleado Nombre="Alberto Vargas" IdTipoDocumento="1" ValorDocumento="5-531-515" FechaNacimiento="1968-09-25" IdDepartamento="4" NombrePuesto="Bodeguero" IdUsuario="35" Activo="1"/>
+    <Empleado Nombre="Marianne Luster" IdTipoDocumento="1" ValorDocumento="7-546-345" FechaNacimiento="1971-08-06" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="36" Activo="1"/>
+    <Empleado Nombre="William Olson" IdTipoDocumento="1" ValorDocumento="6-189-243" FechaNacimiento="1999-01-17" IdDepartamento="2" NombrePuesto="Electricista" IdUsuario="37" Activo="1"/>
+    <Empleado Nombre="James Kanady" IdTipoDocumento="1" ValorDocumento="2-667-577" FechaNacimiento="1978-02-11" IdDepartamento="1" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="38" Activo="1"/>
+    <Empleado Nombre="Christopher Mayle" IdTipoDocumento="1" ValorDocumento="6-453-144" FechaNacimiento="1995-11-25" IdDepartamento="1" NombrePuesto="Bodeguero" IdUsuario="39" Activo="1"/>
+    <Empleado Nombre="Denise Gallegos" IdTipoDocumento="1" ValorDocumento="4-853-477" FechaNacimiento="2005-08-18" IdDepartamento="1" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="40" Activo="1"/>
+    <Empleado Nombre="Gary Gossett" IdTipoDocumento="1" ValorDocumento="2-962-409" FechaNacimiento="1992-02-11" IdDepartamento="1" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="41" Activo="1"/>
+    <Empleado Nombre="Jessica Aultman" IdTipoDocumento="1" ValorDocumento="2-864-314" FechaNacimiento="1966-09-02" IdDepartamento="2" NombrePuesto="Bodeguero" IdUsuario="42" Activo="1"/>
+    <Empleado Nombre="Ginny Turner" IdTipoDocumento="1" ValorDocumento="1-676-199" FechaNacimiento="1993-07-17" IdDepartamento="2" NombrePuesto="Electricista" IdUsuario="43" Activo="1"/>
+    <Empleado Nombre="Jackie Atwood" IdTipoDocumento="1" ValorDocumento="7-261-916" FechaNacimiento="1977-09-25" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="44" Activo="1"/>
+    <Empleado Nombre="Joshua Lofquist" IdTipoDocumento="1" ValorDocumento="5-439-852" FechaNacimiento="1970-02-08" IdDepartamento="1" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="45" Activo="1"/>
+    <Empleado Nombre="Stephen Wix" IdTipoDocumento="1" ValorDocumento="5-468-567" FechaNacimiento="1995-01-20" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="46" Activo="1"/>
+    <Empleado Nombre="Gary Cornett" IdTipoDocumento="1" ValorDocumento="6-845-761" FechaNacimiento="1974-12-28" IdDepartamento="2" NombrePuesto="Bodeguero" IdUsuario="47" Activo="1"/>
+    <Empleado Nombre="Samantha Greene" IdTipoDocumento="1" ValorDocumento="4-399-811" FechaNacimiento="1981-09-05" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="48" Activo="1"/>
+    <Empleado Nombre="Marion Stephens" IdTipoDocumento="1" ValorDocumento="5-456-336" FechaNacimiento="2003-05-11" IdDepartamento="1" NombrePuesto="Bodeguero" IdUsuario="49" Activo="1"/>
+    <Empleado Nombre="Brad Eakins" IdTipoDocumento="1" ValorDocumento="1-250-704" FechaNacimiento="2003-08-07" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="50" Activo="1"/>
+    <Empleado Nombre="Lance Duncan" IdTipoDocumento="1" ValorDocumento="3-581-864" FechaNacimiento="1986-08-17" IdDepartamento="3" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="51" Activo="1"/>
+    <Empleado Nombre="Mark Wilson" IdTipoDocumento="1" ValorDocumento="1-477-866" FechaNacimiento="1979-09-02" IdDepartamento="2" NombrePuesto="Soldador" IdUsuario="52" Activo="1"/>
+    <Empleado Nombre="Peggy Plowman" IdTipoDocumento="1" ValorDocumento="6-275-732" FechaNacimiento="1968-11-09" IdDepartamento="3" NombrePuesto="Electricista" IdUsuario="53" Activo="1"/>
+    <Empleado Nombre="Kyla Williams" IdTipoDocumento="1" ValorDocumento="5-850-891" FechaNacimiento="1997-01-02" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="54" Activo="1"/>
+    <Empleado Nombre="Augustine Ruiz" IdTipoDocumento="1" ValorDocumento="4-140-451" FechaNacimiento="2000-12-10" IdDepartamento="4" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="55" Activo="1"/>
+    <Empleado Nombre="Holly Williams" IdTipoDocumento="1" ValorDocumento="1-562-223" FechaNacimiento="1969-08-09" IdDepartamento="4" NombrePuesto="Operador de Maquina" IdUsuario="56" Activo="1"/>
+    <Empleado Nombre="Roy Engles" IdTipoDocumento="1" ValorDocumento="6-937-775" FechaNacimiento="1968-11-27" IdDepartamento="4" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="57" Activo="1"/>
+    <Empleado Nombre="Velma Dolce" IdTipoDocumento="1" ValorDocumento="7-673-411" FechaNacimiento="1967-10-07" IdDepartamento="1" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="58" Activo="1"/>
+    <Empleado Nombre="Jamie Robinson" IdTipoDocumento="1" ValorDocumento="4-444-943" FechaNacimiento="1995-03-02" IdDepartamento="4" NombrePuesto="Electricista" IdUsuario="59" Activo="1"/>
+    <Empleado Nombre="Cynthia Hill" IdTipoDocumento="1" ValorDocumento="6-204-676" FechaNacimiento="2004-10-25" IdDepartamento="1" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="60" Activo="1"/>
+    <Empleado Nombre="Randall Andrews" IdTipoDocumento="1" ValorDocumento="7-527-258" FechaNacimiento="1987-07-20" IdDepartamento="2" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="61" Activo="1"/>
+    <Empleado Nombre="Ray Gartner" IdTipoDocumento="1" ValorDocumento="2-151-148" FechaNacimiento="2000-08-23" IdDepartamento="3" NombrePuesto="Bodeguero" IdUsuario="62" Activo="1"/>
+    <Empleado Nombre="Maria Grignon" IdTipoDocumento="1" ValorDocumento="2-653-298" FechaNacimiento="1987-09-17" IdDepartamento="4" NombrePuesto="Auxiliar de Laboratorio" IdUsuario="63" Activo="1"/>
+    <Empleado Nombre="Carol Broome" IdTipoDocumento="1" ValorDocumento="6-413-969" FechaNacimiento="1987-04-21" IdDepartamento="2" NombrePuesto="Operador de Maquina" IdUsuario="64" Activo="1"/>
+    <Empleado Nombre="Rhonda Biggs" IdTipoDocumento="1" ValorDocumento="2-540-310" FechaNacimiento="1986-07-07" IdDepartamento="2" NombrePuesto="Tecnico de Mantenimiento" IdUsuario="65" Activo="1"/>
+  </Empleados>
+</Catalogo>
